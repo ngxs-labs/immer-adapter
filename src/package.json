@@ -1,0 +1,24 @@
+{
+    "name": "@ngxs-labs/immer-adapter",
+    "version": "0.0.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ngxs-labs/immer-adapter.git"
+    },
+    "license": "MIT",
+    "homepage": "https://github.com/ngxs-labs/immer-adapter#readme",
+    "bugs": {
+        "url": "https://github.com/ngxs-labs/immer-adapter/issues"
+    },
+    "keywords": [
+        "ngxs",
+        "redux",
+        "store"
+    ],
+    "sideEffects": true,
+    "peerDependencies": {
+        "@angular/core": "^7.0.0",
+        "@ngxs/store": "^0.0.0",
+        "immer": "^0.0.0"
+    }
+}
