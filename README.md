@@ -2,7 +2,7 @@
 
 Before
 
-```
+```ts
 import { State, StateContext } from '@ngxs/store';
 import { Reciver } from '@ngxs-labs/emitter';
 
@@ -30,7 +30,7 @@ export class AnimalState {
 
 After
 
-```
+```ts
 import { State, StateContext } from '@ngxs/store';
 import { Reciver } from '@ngxs-labs/emitter';
 import { produce } from '@ngxs-labs/immer-adapter';
