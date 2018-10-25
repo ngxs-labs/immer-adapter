@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { State, StateContext, NgxsModule, Store } from '@ngxs/store';
 import { Receiver, EmitterAction, NgxsEmitPluginModule, Emitter, Emittable } from '@ngxs-labs/emitter';
 
-import { of, Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 
-import { produce } from '../lib/core/adapter/adapter';
+import { produce } from '../lib/core/immer-adapter/immer-adapter';
 
 describe('Adapter', () => {
     interface Todo {
@@ -104,5 +104,65 @@ describe('Adapter', () => {
             expect(store.selectSnapshot<Todo[]>((state) => state.todos).length).toBe(1);
             done();
         });
+    });
+
+    it('should update nested data in state', () => {
+        interface ZooStateModel {
+            zebra: {
+                food: string[];
+                name: 'zebra';
+            };
+            panda: {
+                food: string[];
+                name: 'panda';
+            };
+        }
+
+        @State<ZooStateModel>({
+            name: 'zoo',
+            defaults: {
+                zebra: {
+                    food: [],
+                    name: 'zebra'
+                },
+                panda: {
+                    food: [],
+                    name: 'panda'
+                }
+            }
+        })
+        class ZooState {
+            @Receiver()
+            public static feedZebra(ctx: StateContext<ZooStateModel>, { payload }: EmitterAction<string>): void {
+                produce(ctx, (draft) => {
+                    draft.zebra.food.push(payload!);
+                });
+            }
+        }
+
+        @Component({ template: '' })
+        class MockComponent {
+            @Emitter(ZooState.feedZebra)
+            public feedZebra!: Emittable<string>;
+        }
+
+        TestBed.configureTestingModule({
+            imports: [
+                NgxsModule.forRoot([ZooState]),
+                NgxsEmitPluginModule.forRoot()
+            ],
+            declarations: [
+                MockComponent
+            ]
+        });
+
+        const fixture = TestBed.createComponent(MockComponent);
+        const store: Store = TestBed.get(Store);
+
+        fixture.componentInstance.feedZebra.emit('grass');
+
+        const { food } = store.selectSnapshot<ZooStateModel>((state) => state.zoo).zebra;
+        expect(food.length).toBe(1);
+        expect(food).toContain('grass');
     });
 });
