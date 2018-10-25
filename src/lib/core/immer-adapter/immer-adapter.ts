@@ -1,6 +1,8 @@
 import { produce as immerProduce, Draft } from 'immer';
 import { StateContext } from '@ngxs/store';
 
+import { isValidContext } from '../internal/internals';
+
 /**
  * An adapter function for the `produce` from `immer` library
  *
@@ -9,9 +11,7 @@ import { StateContext } from '@ngxs/store';
  * @returns - New state or throws an error
  */
 export function produce<T = any, U = any>(ctx: StateContext<T>, recipe: (draft: Draft<T>) => void | T): never | U {
-    const contextIsUndefinedOrNotObject = !ctx || typeof ctx.setState !== 'function' || typeof ctx.getState !== 'function';
-
-    if (contextIsUndefinedOrNotObject) {
+    if (!isValidContext<T>(ctx)) {
         throw new Error('You should provide `StateContext` object as the first argument of the `produce` function');
     }
 
