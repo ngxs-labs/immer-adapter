@@ -6,7 +6,7 @@ Before
 import { State, StateContext } from '@ngxs/store';
 import { Receiver } from '@ngxs-labs/emitter';
 
-@State<ZooStateModel>({
+@State<AnimalStateModel>({
   name: 'zoo',
   defaults: {
     zebra: { food: [], name: 'zebra' },
@@ -37,7 +37,7 @@ import { State, StateContext } from '@ngxs/store';
 import { Reciver } from '@ngxs-labs/emitter';
 import { produce } from '@ngxs-labs/immer-adapter';
 
-@State<ZooStateModel>({
+@State<AnimalStateModel>({
   name: 'zoo',
   defaults: {
     zebra: { food: [], name: 'zebra' },
