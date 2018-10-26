@@ -43,7 +43,7 @@ import { produce } from '@ngxs-labs/immer-adapter';
   }
 })
 export class AnimalState {
-  @Reciver()
+  @Receiver()
   feedZebra(ctx: StateContext<AnimalStateModel>, action: FeedZebra) {
     produce(ctx, (draft: AnimalStateModel) => draft.zebra.food.push(action.zebraToFeed));
   }
