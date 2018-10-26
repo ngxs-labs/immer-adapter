@@ -14,8 +14,9 @@ import { Receiver } from '@ngxs-labs/emitter';
   }
 })
 export class AnimalState {
+
   @Receiver()
-  feedZebra(ctx: StateContext<AnimalStateModel>, action: FeedZebra) {
+  public feedZebra(ctx: StateContext<AnimalStateModel>, action: FeedZebra) {
     const state = ctx.getState();
     ctx.setState({
       ...state,
@@ -25,6 +26,7 @@ export class AnimalState {
       }
     });
   }
+  
 }
 ```
 
@@ -43,9 +45,11 @@ import { produce } from '@ngxs-labs/immer-adapter';
   }
 })
 export class AnimalState {
+  
   @Receiver()
-  feedZebra(ctx: StateContext<AnimalStateModel>, action: FeedZebra) {
+  public feedZebra(ctx: StateContext<AnimalStateModel>, action: FeedZebra) {
     produce(ctx, (draft: AnimalStateModel) => draft.zebra.food.push(action.zebraToFeed));
   }
+  
 }
 ```
