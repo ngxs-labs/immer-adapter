@@ -4,7 +4,7 @@ Before
 
 ```ts
 import { State, StateContext } from '@ngxs/store';
-import { Reciver } from '@ngxs-labs/emitter';
+import { Receiver } from '@ngxs-labs/emitter';
 
 @State<ZooStateModel>({
   name: 'zoo',
@@ -14,7 +14,7 @@ import { Reciver } from '@ngxs-labs/emitter';
   }
 })
 export class AnimalState {
-  @Reciver()
+  @Receiver()
   feedZebra(ctx: StateContext<AnimalStateModel>, action: FeedZebra) {
     const state = ctx.getState();
     ctx.setState({
@@ -45,7 +45,7 @@ import { produce } from '@ngxs-labs/immer-adapter';
 export class AnimalState {
   @Reciver()
   feedZebra(ctx: StateContext<AnimalStateModel>, action: FeedZebra) {
-    produce(ctx, (draft) => draft.zebra.food.push(action.zebraToFeed));
+    produce(ctx, (draft: AnimalStateModel) => draft.zebra.food.push(action.zebraToFeed));
   }
 }
 ```
