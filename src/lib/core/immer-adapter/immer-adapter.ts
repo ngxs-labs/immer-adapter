@@ -11,7 +11,9 @@ import { isValidContext } from '../internal/internals';
  * @returns - New state or throws an error
  */
 export function produce<T = any, U = any>(ctx: StateContext<T>, recipe: (draft: Draft<T>) => void | T): never | U {
-    if (!isValidContext<T>(ctx)) {
+    const invalidContext = !isValidContext<T>(ctx);
+
+    if (invalidContext) {
         throw new Error('You should provide `StateContext` object as the first argument of the `produce` function');
     }
 
