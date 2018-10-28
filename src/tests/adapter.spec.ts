@@ -92,7 +92,7 @@ describe('Adapter', () => {
                     tap((todos) => produce(ctx, (draft) => {
                         draft.push(...todos);
                     }))
-                )
+                );
             }
         }
 
