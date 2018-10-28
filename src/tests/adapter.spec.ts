@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, Injectable, Injector } from '@angular/core';
 import { State, StateContext, NgxsModule, Store } from '@ngxs/store';
 import { Receiver, EmitterAction, NgxsEmitPluginModule, Emitter, Emittable } from '@ngxs-labs/emitter';
 
-import { of } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+import { delay, tap, first } from 'rxjs/operators';
 
-import { produce } from '../lib/core/immer-adapter/immer-adapter';
+import { produce } from '../public_api';
 
 describe('Adapter', () => {
     interface Todo {
-        title: string;
+        text: string;
         completed: boolean;
     }
 
@@ -28,9 +28,7 @@ describe('Adapter', () => {
             }
         }
 
-        @Component({
-            template: ''
-        })
+        @Component({ template: '' })
         class MockComponent {
             @Emitter(TodosState.addTodo)
             public addTodo!: Emittable<Todo>;
@@ -50,38 +48,58 @@ describe('Adapter', () => {
         const store: Store = TestBed.get(Store);
 
         fixture.componentInstance.addTodo.emit({
-            title: 'Buy coffee',
+            text: 'Buy coffee',
             completed: false
         });
 
-        expect(store.selectSnapshot<Todo[]>((state) => state.todos).length).toBe(1);
+        const todos = store.selectSnapshot<Todo[]>((state) => state.todos);
+        expect(todos.length).toBe(1);
     });
 
-    it('should add todo after delay using immer adapter', (done: DoneFn) => {
+    it('should get todos after delay using immer adapter', (done: DoneFn) => {
+        @Injectable()
+        class ApiService {
+            private size = 10;
+
+            public getTodosFromServer(length: number): Observable<Todo[]> {
+                return of(this.generateTodoMock(length)).pipe(delay(1000));
+            }
+
+            private generateTodoMock(size?: number): Todo[] {
+                const length = size || this.size;
+                return Array.from({ length }).map(() => ({
+                    text: 'buy some coffee',
+                    completed: false
+                }));
+            }
+        }
+
         @State<Todo[]>({
             name: 'todos',
             defaults: []
         })
         class TodosState {
-            @Receiver({ type: '[Todos] Add todo' })
-            public static addTodo(ctx: StateContext<Todo[]>, { payload }: EmitterAction<Todo>) {
-                return of(null).pipe(
-                    delay(1000),
-                    tap(() => {
-                        produce<Todo[]>(ctx, (draft) => {
-                            draft.push(payload!);
-                        });
-                    })
-                );
+            private static api: ApiService = null!;
+
+            constructor(injector: Injector) {
+                TodosState.api = injector.get<ApiService>(ApiService);
+            }
+
+            @Receiver({ type: '[Todos] Get todos' })
+            public static getTodos(ctx: StateContext<Todo[]>) {
+                return this.api.getTodosFromServer(10).pipe(
+                    first(),
+                    tap((todos) => produce(ctx, (draft) => {
+                        draft.push(...todos);
+                    }))
+                )
             }
         }
 
-        @Component({
-            template: ''
-        })
+        @Component({ template: '' })
         class MockComponent {
-            @Emitter(TodosState.addTodo)
-            public addTodo!: Emittable<Todo>;
+            @Emitter(TodosState.getTodos)
+            public getTodos!: Emittable<void>;
         }
 
         TestBed.configureTestingModule({
@@ -91,17 +109,18 @@ describe('Adapter', () => {
             ],
             declarations: [
                 MockComponent
+            ],
+            providers: [
+                ApiService
             ]
         });
 
         const fixture = TestBed.createComponent(MockComponent);
         const store: Store = TestBed.get(Store);
 
-        fixture.componentInstance.addTodo.emit({
-            title: 'Buy coffee',
-            completed: false
-        }).subscribe(() => {
-            expect(store.selectSnapshot<Todo[]>((state) => state.todos).length).toBe(1);
+        fixture.componentInstance.getTodos.emit().subscribe(() => {
+            const todos = store.selectSnapshot<Todo[]>((state) => state.todos);
+            expect(todos.length).toBe(10);
             done();
         });
     });

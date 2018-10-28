@@ -10,7 +10,7 @@ import { isValidContext } from '../internal/internals';
  * @param recipe - Function that receives a proxy of the current state
  * @returns - New state or throws an error
  */
-export function produce<T = any, U = any>(ctx: StateContext<T>, recipe: (draft: Draft<T>) => void | T): never | U {
+export function produce<T = unknown, U = unknown>(ctx: StateContext<T>, recipe: (draft: Draft<T>) => void | T): never | U {
     const invalidContext = !isValidContext<T>(ctx);
 
     if (invalidContext) {
