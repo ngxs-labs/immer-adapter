@@ -12,10 +12,68 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ngxs-labs/immer-adapter/blob/master/LICENSE)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f1e798f0a174a20940fb9d5f5e50a43)](https://www.codacy.com/app/arturovt/immer-adapter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ngxs-labs/immer-adapter&amp;utm_campaign=Badge_Grade)
 
-Before
+#### Before
 
-![Before](https://raw.githubusercontent.com/ngxs-labs/immer-adapter/master/docs/assets/before.png)
+```ts
+import { State, StateContext } from '@ngxs/store';
+import { Receiver, EmitterAction } from '@ngxs-labs/emitter';
 
-After
+@State<AnimalsStateModel>({
+ name: 'animals',
+ defaults: {
+   zebra: {
+      food: [],
+      name: 'zebra'
+   },
+   panda: {
+      food: [],
+      name: 'panda'
+   }
+ }
+})
+export class AnimalState {
+  
+  @Receiver()
+  public static feedZebra(ctx: StateContext<AnimalsStateModel>, { payload }: EmitterAction<FeedZebra>) {
+    const state = ctx.getState();
+    ctx.setState({
+      ...state,
+      zebra: {
+        ...state.zebra,
+        food: [...state.zebra.food, payload]
+      }
+    });
+  }
 
-![After](https://raw.githubusercontent.com/ngxs-labs/immer-adapter/master/docs/assets/after.png)
+}
+```
+
+#### After
+
+```ts
+import { State, StateContext } from '@ngxs/store';
+import { Receiver, EmitterAction } from '@ngxs-labs/emitter';
+import { produce } from '@ngxs-labs/immer-adapter';
+
+@State<AnimalsStateModel>({
+ name: 'animals',
+ defaults: {
+   zebra: {
+      food: [],
+      name: 'zebra'
+   },
+   panda: {
+      food: [],
+      name: 'panda'
+   }
+ }
+})
+export class AnimalState {
+  
+  @Receiver()
+  public static feedZebra(ctx: StateContext<AnimalsStateModel>, { payload }: EmitterAction<FeedZebra>) {
+    produce(ctx, (draft: AnimalsStateModel) => draft.zebra.food.push(payload));
+  }
+  
+}
+```
