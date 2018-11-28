@@ -3,113 +3,29 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "immer-adapter-e2e": {
-            "root": "",
-            "sourceRoot": "e2e",
-            "projectType": "application",
-            "prefix": "app",
-            "schematics": {},
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
-                    "options": {
-                        "outputPath": "dist/immer-adapter",
-                        "index": "e2e/index.html",
-                        "main": "e2e/main.ts",
-                        "polyfills": "e2e/polyfills.ts",
-                        "tsConfig": "e2e/tsconfig.app.json",
-                        "assets": [
-                            "e2e/favicon.ico",
-                            "e2e/assets"
-                        ],
-                        "styles": [
-                            "e2e/styles.css"
-                        ],
-                        "scripts": []
-                    },
-                    "configurations": {
-                        "production": {
-                            "fileReplacements": [{
-                                "replace": "e2e/environments/environment.ts",
-                                "with": "e2e/environments/environment.prod.ts"
-                            }],
-                            "optimization": true,
-                            "outputHashing": "all",
-                            "sourceMap": false,
-                            "extractCss": true,
-                            "namedChunks": false,
-                            "aot": true,
-                            "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": true
-                        }
-                    }
-                },
-
-                "serve": {
-                    "builder": "@angular-devkit/build-angular:dev-server",
-                    "options": {
-                        "browserTarget": "immer-adapter:build"
-                    },
-                    "configurations": {
-                        "production": {
-                            "browserTarget": "immer-adapter:build:production"
-                        }
-                    }
-                },
-
-                "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n",
-                    "options": {
-                        "browserTarget": "immer-adapter:build"
-                    }
-                },
-
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "e2e/test.ts",
-                        "polyfills": "e2e/polyfills.ts",
-                        "tsConfig": "e2e/tsconfig.spec.json",
-                        "karmaConfig": "e2e/karma.conf.js",
-                        "styles": [
-                            "e2e/styles.css"
-                        ],
-                        "scripts": [],
-                        "assets": [
-                            "e2e/favicon.ico",
-                            "e2e/assets"
-                        ]
-                    }
-                },
-
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "e2e/tsconfig.app.json",
-                            "e2e/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
-                    }
-                }
-            }
-        },
-
         "immer-adapter": {
-            "root": "./",
-            "sourceRoot": "./",
+            "root": "",
+            "sourceRoot": "src",
             "projectType": "library",
             "prefix": "immer-adapter",
             "architect": {
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
                     "options": {
-                        "main": "src/test.ts",
-                        "tsConfig": "src/tsconfig.spec.json",
-                        "karmaConfig": "src/karma.conf.js"
+                        "tsConfig": "src/tsconfig.lib.json",
+                        "project": "src/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "project": "src/ng-package.prod.json"
+                        }
+                    }
+                },
+
+                "test": {
+                    "builder": "@angular-builders/jest:run",
+                    "options": {
+                        "no-cache": true
                     }
                 },
 
@@ -127,7 +43,5 @@
                 }
             }
         }
-    },
-
-    "defaultProject": "immer-adapter-e2e"
+    }
 }

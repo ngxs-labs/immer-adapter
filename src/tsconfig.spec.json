@@ -1,11 +1,8 @@
 {
     "extends": "../tsconfig.json",
     "compilerOptions": {
-        "types": ["jasmine","node"]
+        "types": ["jest", "node"]
     },
-    "files": [
-        "test.ts"
-    ],
     "include": [
         "**/*.spec.ts",
         "**/*.d.ts"
