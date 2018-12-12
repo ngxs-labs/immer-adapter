@@ -50,7 +50,7 @@
         "@angular/platform-browser-dynamic": "7.1.0",
         "@ngxs-labs/emitter": "1.6.4",
         "@ngxs/store": "3.3.2",
-        "immer": "1.8.0",
+        "immer": "1.8.1",
         "rxjs": "6.3.3",
         "zone.js": "0.8.26"
     },
