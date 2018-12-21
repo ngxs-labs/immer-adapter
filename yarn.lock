@@ -235,10 +235,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ngxs/store@3.3.2":
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/@ngxs/store/-/store-3.3.2.tgz#dab346353a7f8a8f6f055be7c11a6785347ca1b9"
-  integrity sha512-QMPVIgnzER+JnKO311zkEQml0mlvapIlZV7GvByTSD8+W5OE38oehe3Hakq8/gDZHqlpwSFCOGijgWwfVCnRHg==
+"@ngxs/store@3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@ngxs/store/-/store-3.3.4.tgz#dced015eedf054bc651bbc1b67b590287cec7437"
+  integrity sha512-99J2/+Tg/yoq+Fs9mfC6bgGnywV85TLIBkO8DWVN6mPVh2DQ6WlsxgvJjZcp0J5Uw8v5+uKsTit6OXeDxO5VOw==
   dependencies:
     tslib "^1.9.0"
 
