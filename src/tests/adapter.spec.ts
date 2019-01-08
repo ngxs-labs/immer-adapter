@@ -52,11 +52,11 @@ describe('Adapter', () => {
             completed: false
         });
 
-        const todos = store.selectSnapshot<Todo[]>((state) => state.todos);
+        const todos = store.selectSnapshot<Todo[]>(({ todos }) => todos);
         expect(todos.length).toBe(1);
     });
 
-    it('should get todos after delay using immer adapter', (done: DoneFn) => {
+    it('should get todos after delay using immer adapter', (done: jest.DoneCallback) => {
         @Injectable()
         class ApiService {
             private size = 10;
@@ -119,7 +119,7 @@ describe('Adapter', () => {
         const store: Store = TestBed.get(Store);
 
         fixture.componentInstance.getTodos.emit().subscribe(() => {
-            const todos = store.selectSnapshot<Todo[]>((state) => state.todos);
+            const todos = store.selectSnapshot<Todo[]>(({ todos }) => todos);
             expect(todos.length).toBe(10);
             done();
         });
