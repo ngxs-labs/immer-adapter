@@ -248,10 +248,10 @@
     tree-kill "1.2.0"
     webpack-sources "1.2.0"
 
-"@ngxs-labs/emitter@1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@ngxs-labs/emitter/-/emitter-1.8.0.tgz#9c7ff1024b67e2fe677b2ad2317222f48b57ef16"
-  integrity sha512-F9jsCIxgmATLD7O1XbehDb3OSS03unXiziF2HwJnwHCA3uW8Il0Bo0922SIOP1zG51Unp70AVAQjB/aFgTQalA==
+"@ngxs-labs/emitter@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@ngxs-labs/emitter/-/emitter-1.9.0.tgz#aa9c21e2dae7257cec10b6c21fe3e784560c5ed6"
+  integrity sha512-OLek2LdPp1vvjJ0WMn37IhkfzEmeaNzdJt3xx5hydB71PnDFC+NuCU1aqLcQ1/8vxO1SK8jd9JUxMMarqvJlUA==
   dependencies:
     tslib "^1.9.0"
 
