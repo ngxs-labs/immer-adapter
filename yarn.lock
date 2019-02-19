@@ -18,20 +18,20 @@
     "@angular-devkit/core" "7.1.4"
     rxjs "6.3.3"
 
-"@angular-devkit/architect@0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.12.0.tgz#93dc6c8a97971bac745bff6ecc7e21d502a8a472"
-  integrity sha512-p7VtPmEq9/9wfIEqXIeWDFt89xmJptBGGLWAn98wgXZNrWc1erahsVmYEEruPRBdwq+KL1xQNaodGFDkUCZxXQ==
-  dependencies:
-    "@angular-devkit/core" "7.2.0"
-    rxjs "6.3.3"
-
 "@angular-devkit/architect@0.12.2":
   version "0.12.2"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.12.2.tgz#1bfa43881c8927b8e12ffd4a2a3a645d6356e748"
   integrity sha512-32Eim3PM/CJKGcCF1FJQ91ohuF2vBGMd4t1DILaoOMXHWmPLI9N4ILzWHfqFLRvb8QFgLn4VNG7CI9K7GcSBlQ==
   dependencies:
     "@angular-devkit/core" "7.2.2"
+    rxjs "6.3.3"
+
+"@angular-devkit/architect@0.13.2":
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.13.2.tgz#9e24978b5aeb45322702f756a1f705f0e76ab1f3"
+  integrity sha512-wcUdMzcpsxzscEa+wrhV1SE2PsHS6FnHJlRURFOtQmKvQAq3Y8gVw28l008SMt5d0bTrRV4xLL2lgvwJJoc7LA==
+  dependencies:
+    "@angular-devkit/core" "7.3.2"
     rxjs "6.3.3"
 
 "@angular-devkit/build-angular@0.11.4":
@@ -88,15 +88,15 @@
   optionalDependencies:
     node-sass "4.10.0"
 
-"@angular-devkit/build-ng-packagr@0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-ng-packagr/-/build-ng-packagr-0.12.0.tgz#8cee3d40cddb71a3b78bded746fa30eb8d230958"
-  integrity sha512-5H4MG124XXtclfNDZQzKAQIaTmHZwvceS5JCasMmfQljwB/BOXlJBXB3dW/I5DGgu9hZVD3mySjwWXxKqfYGTQ==
+"@angular-devkit/build-ng-packagr@0.13.2":
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-ng-packagr/-/build-ng-packagr-0.13.2.tgz#f1a83bbe84451669cc31fac3d305bf704da6dcd7"
+  integrity sha512-QJc4B2Q+dK++Ns17yLIo8Q/1HRn6f4AheayiskaOMEEvYqDNohaqb+6xDp30WAn4zgjRObiuH1EFb3XdTLMrCQ==
   dependencies:
-    "@angular-devkit/architect" "0.12.0"
-    "@angular-devkit/core" "7.2.0"
+    "@angular-devkit/architect" "0.13.2"
+    "@angular-devkit/core" "7.3.2"
     rxjs "6.3.3"
-    semver "5.5.1"
+    semver "5.6.0"
 
 "@angular-devkit/build-optimizer@0.11.4":
   version "0.11.4"
@@ -128,10 +128,10 @@
     rxjs "6.3.3"
     source-map "0.7.3"
 
-"@angular-devkit/core@7.2.0":
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-7.2.0.tgz#c138be754f17908b773dba7c20fe6f40a080d10b"
-  integrity sha512-0T9SJQ2f8qxGClonulQd4pMFfOrEv/it+doPgnalsM8UhQ3RRSrziFGEB97kpLTjH8fIPEgC/80YbtwOarfojg==
+"@angular-devkit/core@7.2.2":
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-7.2.2.tgz#f0daf3e24f0ce8105341118f4505c1db4e284ab0"
+  integrity sha512-gDF8iXiPN870WuBMl7bCQ5+Qz5SjGL/qMcvP4hli5hkn+kMAhgG38ligUK1bbhPQUJ+Z/nSOEmyv8gLHO09SZg==
   dependencies:
     ajv "6.6.2"
     chokidar "2.0.4"
@@ -139,12 +139,12 @@
     rxjs "6.3.3"
     source-map "0.7.3"
 
-"@angular-devkit/core@7.2.2":
-  version "7.2.2"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-7.2.2.tgz#f0daf3e24f0ce8105341118f4505c1db4e284ab0"
-  integrity sha512-gDF8iXiPN870WuBMl7bCQ5+Qz5SjGL/qMcvP4hli5hkn+kMAhgG38ligUK1bbhPQUJ+Z/nSOEmyv8gLHO09SZg==
+"@angular-devkit/core@7.3.2":
+  version "7.3.2"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-7.3.2.tgz#67ac2cfcbe47f1e457929c19ab1b04c9e061b2e2"
+  integrity sha512-W5KjkHRNVBcZRUNJamAn52IAj9Gl1zUjPA2r75JJK7k199xOA8UZqcIukQOgM1N7rwKCWht08i4FsdcTDghMhQ==
   dependencies:
-    ajv "6.6.2"
+    ajv "6.9.1"
     chokidar "2.0.4"
     fast-json-stable-stringify "2.0.0"
     rxjs "6.3.3"
@@ -537,6 +537,16 @@ ajv@6.6.2:
   version "6.6.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.6.2.tgz#caceccf474bf3fc3ce3b147443711a24063cc30d"
   integrity sha512-FBHEW6Jf5TB9MGBgUUA9XHkTbjXYfAUjY43ACMfmdMRHniyoMHjHjzD50OK8LGDWQwp4rWEsIq5kEqq7rvIM1g==
+  dependencies:
+    fast-deep-equal "^2.0.1"
+    fast-json-stable-stringify "^2.0.0"
+    json-schema-traverse "^0.4.1"
+    uri-js "^4.2.2"
+
+ajv@6.9.1:
+  version "6.9.1"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.9.1.tgz#a4d3683d74abc5670e75f0b16520f70a20ea8dc1"
+  integrity sha512-XDN92U311aINL77ieWHmqCcNlwjoP5cHXDxIxbf2MaPYuCXOHS7gHH8jktxeK5omgd52XbSTX6a4Piwd1pQmzA==
   dependencies:
     fast-deep-equal "^2.0.1"
     fast-json-stable-stringify "^2.0.0"
