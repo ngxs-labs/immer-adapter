@@ -173,15 +173,17 @@
     semver "5.5.1"
     symbol-observable "1.2.0"
 
-"@angular/common@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-7.1.0.tgz#89b0a34fd8f2a323704369551be4ac7491dda0b7"
+"@angular/common@7.2.5":
+  version "7.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-7.2.5.tgz#6fbd0d8b5d973f3011bdffb0915dcb2250e0582e"
+  integrity sha512-IW3vk0DDblbZMD8gkKVpPa/krXky4i5baFhKgqN2xYo48epXYvAezm5q71a982eadjUussbaYPlsXzYNAhdVKQ==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/compiler-cli@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-7.1.0.tgz#b02b2f94b9510caadc2b16bf1f97aa41d21a3ce2"
+"@angular/compiler-cli@7.2.5":
+  version "7.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-7.2.5.tgz#745fc2ccab3e583d7bb883e664ef53dd4c2d800b"
+  integrity sha512-3PzRaz3cKKnhhWKixKhXUvD2klKoAiFO/81ETMC+lp4GGWL35NAts0KnudSNxQIktYOlardQHEggtfgxq+spRg==
   dependencies:
     canonical-path "1.0.0"
     chokidar "^1.4.2"
@@ -195,27 +197,31 @@
     tslib "^1.9.0"
     yargs "9.0.1"
 
-"@angular/compiler@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-7.1.0.tgz#3455eeb575d0b9b68a099b5781d3cce78468146a"
+"@angular/compiler@7.2.5":
+  version "7.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-7.2.5.tgz#4ee2dd429835e7b8d9859ec6b6c3c4a57c5408d0"
+  integrity sha512-/41ehOSupAA+uc32XHmN5jOvqmb4A4D+V+MXDmnlYVaYAYZrGf3AS+1RJuBy5cIUGQ1Nv+Nbj4Y7X/ydb6ncOQ==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/core@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-7.1.0.tgz#a55fbbc28b2c9da767121f433733683780266eb3"
+"@angular/core@7.2.5":
+  version "7.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-7.2.5.tgz#6634816b2f50390adda0cb6416119cea248d8a40"
+  integrity sha512-SKBDqoKNj9vjuLeNToFySafTWb+fyIhCj6C/yzlPcsRPLZj0Kzbvn1IKE+TWBLa/85dUiaE1xdBNQ66jTtpFSA==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/platform-browser-dynamic@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-7.1.0.tgz#c7d07f6b1c08fa12c54b4e310da930da613c7e6e"
+"@angular/platform-browser-dynamic@7.2.5":
+  version "7.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-7.2.5.tgz#5fc62e536e4539bfb7e657ab9d6804dabab88010"
+  integrity sha512-GlipaKFqWlcaGWowccFxAgscpgMnWJucRnDrHRgvp3iUbqt2mC4sLko8BOi0S5FkE1D4+EqyEyp8DLM4o7VDvg==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/platform-browser@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-7.1.0.tgz#0d40fed536a08d66ea580f6c4d2976310d559111"
+"@angular/platform-browser@7.2.5":
+  version "7.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-7.2.5.tgz#56d68bc6a6cf77d4c74cae739d036e3875d4a223"
+  integrity sha512-trSFOsRC+PrjqE709RQ7ezVCouehD7e82FhQNZQx9O1IZQyO0hxE2ncVB4Lvd7KpunAiFX7M1A2wfksHQl+0qw==
   dependencies:
     tslib "^1.9.0"
 
