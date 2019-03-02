@@ -303,10 +303,10 @@
   version "10.12.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.0.tgz#ea6dcbddbc5b584c83f06c60e82736d8fbb0c235"
 
-"@types/node@11.9.0":
-  version "11.9.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.9.0.tgz#35fea17653490dab82e1d5e69731abfdbf13160d"
-  integrity sha512-ry4DOrC+xenhQbzk1iIPzCZGhhPGEFv7ia7Iu6XXSLVluiJIe9FfG7Iu3mObH9mpxEXCWLCMU4JWbCCR9Oy1Zg==
+"@types/node@11.10.1":
+  version "11.10.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.10.1.tgz#3798bc942c187a2935a49472db3c5227eb39cdfc"
+  integrity sha512-VzvYpjW6sm5PJlYBGXt+XFmYvrDS4XLtVykTS6d3yiOWpCLc+cYwSjp++lmVL7iw4V301NVonMFzcqe4AKFQYA==
 
 "@types/semver@5.5.0":
   version "5.5.0"
