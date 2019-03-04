@@ -48,7 +48,7 @@
         "@angular/platform-browser": "7.2.7",
         "@angular/platform-browser-dynamic": "7.2.7",
         "@ngxs-labs/emitter": "1.9.0",
-        "@ngxs/store": "3.3.4",
+        "@ngxs/store": "3.4.1",
         "immer": "1.10.1",
         "rxjs": "6.4.0",
         "zone.js": "0.8.26"
