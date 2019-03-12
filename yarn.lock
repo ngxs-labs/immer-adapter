@@ -3075,10 +3075,10 @@ image-size@~0.5.0:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
 
-immer@1.10.1:
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/immer/-/immer-1.10.1.tgz#ac5d4f0a5e3dbe2f02fe3068edc4bc86c9ac6ef9"
-  integrity sha512-pvkYBC0W8I4akXwI/8+TknTG5r9/vEhcbdkL13SaDkfRapsn4N+nF+h2TO/YesTHwFrxICEP041KKEluEx030w==
+immer@2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-2.1.2.tgz#c307cda2a899a2ab235c990c2d2290755aa87e6c"
+  integrity sha512-4vHC3QtwjIkEDczY3CsBoMhLl4VvmjwPSIWVWHQPAJlk8U6zCwH2ovf+0z0TTh14bFg9yE++4TcSeIf3tumPQQ==
 
 immutable@^3.8.2:
   version "3.8.2"
