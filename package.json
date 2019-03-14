@@ -51,7 +51,7 @@
         "@ngxs/store": "3.3.4",
         "immer": "1.10.1",
         "rxjs": "6.4.0",
-        "zone.js": "0.8.26"
+        "zone.js": "0.8.29"
     },
     "devDependencies": {
         "@angular-builders/jest": "7.3.1",
