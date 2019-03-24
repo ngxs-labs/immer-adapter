@@ -9,12 +9,7 @@
 [![Build Status](https://travis-ci.org/ngxs-labs/immer-adapter.svg?branch=master)](https://travis-ci.org/ngxs-labs/immer-adapter)
 [![NPM](https://badge.fury.io/js/%40ngxs-labs%2Fimmer-adapter.svg)](https://www.npmjs.com/package/@ngxs-labs/immer-adapter)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ngxs-labs/immer-adapter/blob/master/LICENSE)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f1e798f0a174a20940fb9d5f5e50a43)](https://www.codacy.com/app/arturovt/immer-adapter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ngxs-labs/immer-adapter&amp;utm_campaign=Badge_Grade) [![Greenkeeper badge](https://badges.greenkeeper.io/ngxs-labs/immer-adapter.svg)](https://greenkeeper.io/)
-
-## Deprecated
-
-The plugin `@ngxs-labs/immer-adapter` not supported in 3.4.x anymore... 
-https://medium.com/ngxs/ngxs-state-operators-8b339641b220
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f1e798f0a174a20940fb9d5f5e50a43)](https://www.codacy.com/app/arturovt/immer-adapter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ngxs-labs/immer-adapter&amp;utm_campaign=Badge_Grade)
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/ngxs-labs/immer-adapter/master/docs/assets/immer.png">
@@ -30,7 +25,9 @@ npm install @ngxs-labs/immer-adapter immer
 yarn add @ngxs-labs/immer-adapter immer
 ```
 
-#### Before
+#### Produce operator
+
+##### Before
 
 When your state is growing - it becomes harder to manage such mutations:
 
@@ -68,25 +65,10 @@ export class AnimalState {
             }
         });
     }
-
-    // OR if you are using ER approach
-
-    @Receiver()
-    public static feedZebra({ getState, setState }: StateContext<AnimalsStateModel>, { payload }: EmitterAction<string>) {
-        const state = getState();
-        setState({
-            ...state,
-            zebra: {
-                ...state.zebra,
-                food: [...state.zebra.food, payload]
-            }
-        });
-    }
-
 }
 ```
 
-#### After
+##### After
 
 `immer-adapter` gives you the opportunity to manage mutations in a more declarative way:
 
@@ -116,13 +98,6 @@ export class FeedZebra {
 export class AnimalState {
     @Action(FeedZebra)
     public feedZebra(ctx: StateContext<AnimalsStateModel>, { payload }: FeedZebra) {
-        produce(ctx, (draft: AnimalsStateModel) => draft.zebra.food.push(payload));
-    }
-
-    // OR if you are using ER approach
-
-    @Receiver()
-    public static feedZebra(ctx: StateContext<AnimalsStateModel>, { payload }: EmitterAction<string>) {
         produce(ctx, (draft: AnimalsStateModel) => draft.zebra.food.push(payload));
     }
 }
