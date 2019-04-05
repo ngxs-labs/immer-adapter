@@ -8,15 +8,15 @@ import { isValidContext } from '../internal/internals';
  *
  * @param ctx - Reference to the `StateContext` plain object
  * @param recipe - Function that receives a proxy of the current state
+ * @deprecated - use immutable helpers from ngxs v3.4.x
  * @returns - New state or throws an error
  */
-export function produce<T = unknown, U = unknown>(ctx: StateContext<T>, recipe: (draft: Draft<T>) => void | T): never | U {
+export function produce<T = any>(ctx: StateContext<T>, recipe: (draft: Draft<T>) => void | T): never | T {
     const invalidContext = !isValidContext<T>(ctx);
 
     if (invalidContext) {
         throw new Error('You should provide `StateContext` object as the first argument of the `produce` function');
     }
 
-    const { getState, setState } = ctx;
-    return setState(immerProduce(getState(), recipe));
+    return ctx.setState((state: T) => immerProduce(state, recipe));
 }
