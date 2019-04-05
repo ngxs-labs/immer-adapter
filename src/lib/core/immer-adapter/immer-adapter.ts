@@ -1,5 +1,5 @@
 import { produce as immerProduce, Draft } from 'immer';
-import { StateContext } from '@ngxs/store';
+import { StateContext, StateOperator } from '@ngxs/store';
 
 import { isValidContext } from '../internal/internals';
 
@@ -18,5 +18,5 @@ export function produce<T = any>(ctx: StateContext<T>, recipe: (draft: Draft<T>)
         throw new Error('You should provide `StateContext` object as the first argument of the `produce` function');
     }
 
-    return ctx.setState((state: T) => immerProduce(state, recipe));
+    return ctx.setState(((state: T) => immerProduce(state, recipe)) as StateOperator<T>);
 }
