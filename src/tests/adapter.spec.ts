@@ -1,34 +1,43 @@
-import { TestBed } from '@angular/core/testing';
-import { Component, Injectable, Injector } from '@angular/core';
-import { State, StateContext, NgxsModule, Store } from '@ngxs/store';
-import { Receiver, EmitterAction, NgxsEmitPluginModule, Emitter, Emittable } from '@ngxs-labs/emitter';
+import { TestBed } from "@angular/core/testing";
+import { Component, Injectable, Injector } from "@angular/core";
+import { NgxsModule, State, StateContext, Store } from "@ngxs/store";
+import {
+    Emittable,
+    Emitter,
+    EmitterAction,
+    NgxsEmitPluginModule,
+    Receiver
+} from "@ngxs-labs/emitter";
 
-import { of, Observable } from 'rxjs';
-import { delay, tap, first } from 'rxjs/operators';
+import { Observable, of } from "rxjs";
+import { delay, first, tap } from "rxjs/operators";
 
-import { produce } from '../public_api';
+import { produce } from "../public_api";
 
-describe('Adapter', () => {
-    interface Todo {
-        text: string;
-        completed: boolean;
-    }
+interface Todo {
+    text: string;
+    completed: boolean;
+}
 
-    it('should add todo using immer adapter', () => {
+describe("Adapter API 1.x", () => {
+    it("should add todo using immer adapter", () => {
         @State<Todo[]>({
-            name: 'todos',
+            name: "todos",
             defaults: []
         })
         class TodosState {
-            @Receiver({ type: '[Todos] Add todo' })
-            public static addTodo(ctx: StateContext<Todo[]>, { payload }: EmitterAction<Todo>): void {
-                produce<Todo[]>(ctx, (draft) => {
+            @Receiver({ type: "[Todos] Add todo" })
+            public static addTodo(
+                ctx: StateContext<Todo[]>,
+                { payload }: EmitterAction<Todo>
+            ): void {
+                produce<Todo[]>(ctx, draft => {
                     draft.push(payload!);
                 });
             }
         }
 
-        @Component({ template: '' })
+        @Component({ template: "" })
         class MockComponent {
             @Emitter(TodosState.addTodo)
             public addTodo!: Emittable<Todo>;
@@ -39,16 +48,14 @@ describe('Adapter', () => {
                 NgxsModule.forRoot([TodosState]),
                 NgxsEmitPluginModule.forRoot()
             ],
-            declarations: [
-                MockComponent
-            ]
+            declarations: [MockComponent]
         });
 
         const fixture = TestBed.createComponent(MockComponent);
         const store: Store = TestBed.get(Store);
 
         fixture.componentInstance.addTodo.emit({
-            text: 'Buy coffee',
+            text: "Buy coffee",
             completed: false
         });
 
@@ -56,7 +63,7 @@ describe('Adapter', () => {
         expect(todos.length).toBe(1);
     });
 
-    it('should get todos after delay using immer adapter', (done: jest.DoneCallback) => {
+    it("should get todos after delay using immer adapter", (done: jest.DoneCallback) => {
         @Injectable()
         class ApiService {
             private size = 10;
@@ -68,14 +75,14 @@ describe('Adapter', () => {
             private generateTodoMock(size?: number): Todo[] {
                 const length = size || this.size;
                 return Array.from({ length }).map(() => ({
-                    text: 'buy some coffee',
+                    text: "buy some coffee",
                     completed: false
                 }));
             }
         }
 
         @State<Todo[]>({
-            name: 'todos',
+            name: "todos",
             defaults: []
         })
         class TodosState {
@@ -85,18 +92,20 @@ describe('Adapter', () => {
                 TodosState.api = injector.get<ApiService>(ApiService);
             }
 
-            @Receiver({ type: '[Todos] Get todos' })
+            @Receiver({ type: "[Todos] Get todos" })
             public static getTodos(ctx: StateContext<Todo[]>) {
                 return this.api.getTodosFromServer(10).pipe(
                     first(),
-                    tap((todos) => produce(ctx, (draft) => {
-                        draft.push(...todos);
-                    }))
+                    tap(todos =>
+                        produce(ctx, draft => {
+                            draft.push(...todos);
+                        })
+                    )
                 );
             }
         }
 
-        @Component({ template: '' })
+        @Component({ template: "" })
         class MockComponent {
             @Emitter(TodosState.getTodos)
             public getTodos!: Emittable<void>;
@@ -107,12 +116,8 @@ describe('Adapter', () => {
                 NgxsModule.forRoot([TodosState]),
                 NgxsEmitPluginModule.forRoot()
             ],
-            declarations: [
-                MockComponent
-            ],
-            providers: [
-                ApiService
-            ]
+            declarations: [MockComponent],
+            providers: [ApiService]
         });
 
         const fixture = TestBed.createComponent(MockComponent);
@@ -125,41 +130,44 @@ describe('Adapter', () => {
         });
     });
 
-    it('should update nested data in state', () => {
+    it("should update nested data in state", () => {
         interface ZooStateModel {
             zebra: {
                 food: string[];
-                name: 'zebra';
+                name: "zebra";
             };
             panda: {
                 food: string[];
-                name: 'panda';
+                name: "panda";
             };
         }
 
         @State<ZooStateModel>({
-            name: 'zoo',
+            name: "zoo",
             defaults: {
                 zebra: {
                     food: [],
-                    name: 'zebra'
+                    name: "zebra"
                 },
                 panda: {
                     food: [],
-                    name: 'panda'
+                    name: "panda"
                 }
             }
         })
         class ZooState {
             @Receiver()
-            public static feedZebra(ctx: StateContext<ZooStateModel>, { payload }: EmitterAction<string>): void {
-                produce(ctx, (draft) => {
+            public static feedZebra(
+                ctx: StateContext<ZooStateModel>,
+                { payload }: EmitterAction<string>
+            ): void {
+                produce(ctx, draft => {
                     draft.zebra.food.push(payload!);
                 });
             }
         }
 
-        @Component({ template: '' })
+        @Component({ template: "" })
         class MockComponent {
             @Emitter(ZooState.feedZebra)
             public feedZebra!: Emittable<string>;
@@ -170,18 +178,18 @@ describe('Adapter', () => {
                 NgxsModule.forRoot([ZooState]),
                 NgxsEmitPluginModule.forRoot()
             ],
-            declarations: [
-                MockComponent
-            ]
+            declarations: [MockComponent]
         });
 
         const fixture = TestBed.createComponent(MockComponent);
         const store: Store = TestBed.get(Store);
 
-        fixture.componentInstance.feedZebra.emit('grass');
+        fixture.componentInstance.feedZebra.emit("grass");
 
-        const { food } = store.selectSnapshot<ZooStateModel>((state) => state.zoo).zebra;
+        const { food } = store.selectSnapshot<ZooStateModel>(
+            state => state.zoo
+        ).zebra;
         expect(food.length).toBe(1);
-        expect(food).toContain('grass');
+        expect(food).toContain("grass");
     });
 });
