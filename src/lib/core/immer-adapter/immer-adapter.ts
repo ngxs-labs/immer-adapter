@@ -12,11 +12,11 @@ import { isValidContext } from '../internal/internals';
  * @returns - New state or throws an error
  */
 export function produce<T = any>(ctx: StateContext<T>, recipe: (draft: Draft<T>) => void | T): never | T {
-    const invalidContext = !isValidContext<T>(ctx);
+  const invalidContext = !isValidContext<T>(ctx);
 
-    if (invalidContext) {
-        throw new Error('You should provide `StateContext` object as the first argument of the `produce` function');
-    }
+  if (invalidContext) {
+    throw new Error('You should provide `StateContext` object as the first argument of the `produce` function');
+  }
 
-    return ctx.setState(((state: T) => immerProduce(state, recipe)) as StateOperator<T>);
+  return ctx.setState(((state: T) => immerProduce(state, recipe)) as StateOperator<T>);
 }

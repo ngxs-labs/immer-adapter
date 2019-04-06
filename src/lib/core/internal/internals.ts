@@ -7,7 +7,7 @@ import { StateContext } from '@ngxs/store';
  * @returns - True if the passed target is not `undefined` and not `null`
  */
 function isDefined<T = unknown>(target: T): boolean {
-    return target !== undefined && target !== null;
+  return target !== undefined && target !== null;
 }
 
 /**
@@ -17,5 +17,5 @@ function isDefined<T = unknown>(target: T): boolean {
  * @returns - True if provided object is valid and has necessary methods
  */
 export function isValidContext<T = unknown>(ctx: StateContext<T>): boolean {
-    return isDefined(ctx) && typeof ctx.getState === 'function' && typeof ctx.setState === 'function';
+  return isDefined(ctx) && typeof ctx.getState === 'function' && typeof ctx.setState === 'function';
 }
