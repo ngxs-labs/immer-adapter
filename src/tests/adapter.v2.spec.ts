@@ -1,131 +1,130 @@
-import { NgxsModule, State, StateContext, Store } from "@ngxs/store";
-import {
-    Emittable,
-    Emitter,
-    EmitterAction,
-    NgxsEmitPluginModule,
-    Receiver
-} from "@ngxs-labs/emitter";
-import { Component } from "@angular/core";
-import { TestBed } from "@angular/core/testing";
+import { NgxsModule, Store } from '@ngxs/store';
+import { NgxsEmitPluginModule } from '@ngxs-labs/emitter';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Mutation } from "../public_api";
+import { animalInitialState, AnimalState, FeedImmutableZebra, FeedZebra } from './helpers/animal.helper';
+import { MockComponent, todosInitialState, TodosState } from './helpers/todo.helper';
 
-interface Todo {
-    text: string;
-    completed: boolean;
-}
+describe('API 2.x', () => {
+  let store: Store;
+  let fixture: ComponentFixture<any>;
 
-describe("API 2.x", () => {
-    @State<Todo[]>({
-        name: "todos",
-        defaults: [{ text: "hello", completed: true }]
-    })
-    class TodosState {
-        @Receiver()
-        public static mutableAddTodo(
-            ctx: StateContext<Todo[]>,
-            { payload }: EmitterAction<Todo>
-        ): void {
-            ctx.setState((state: Todo[]) => {
-                state.push(payload as Todo);
-                return state;
-            });
-        }
+  describe('Todo state', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [NgxsModule.forRoot([TodosState]), NgxsEmitPluginModule.forRoot()],
+        declarations: [MockComponent]
+      });
 
-        @Receiver()
-        @Mutation()
-        public static immutableAddTodo(
-            ctx: StateContext<Todo[]>,
-            { payload }: EmitterAction<Todo>
-        ): void {
-            ctx.setState((state: Todo[]) => {
-                state.push(payload as Todo);
-                return state;
-            });
-        }
-    }
-
-    @Component({ template: "" })
-    class MockComponent {
-        @Emitter(TodosState.mutableAddTodo)
-        public mutableAddTodo!: Emittable<Todo>;
-
-        @Emitter(TodosState.immutableAddTodo)
-        public immutableAddTodo!: Emittable<Todo>;
-    }
-
-    it("should add todo with classic mutation", () => {
-        TestBed.configureTestingModule({
-            imports: [
-                NgxsModule.forRoot([TodosState]),
-                NgxsEmitPluginModule.forRoot()
-            ],
-            declarations: [MockComponent]
-        });
-
-        const fixture = TestBed.createComponent(MockComponent);
-        const store: Store = TestBed.get(Store);
-
-        const previous = store.selectSnapshot(TodosState);
-
-        expect(previous).toEqual([{ text: "hello", completed: true }]);
-
-        fixture.componentInstance.mutableAddTodo.emit({
-            text: "World",
-            completed: false
-        });
-
-        const newState = store.selectSnapshot(TodosState);
-
-        expect(previous).toEqual([
-            { text: "hello", completed: true },
-            {
-                text: "World",
-                completed: false
-            }
-        ]);
-
-        expect(newState).toEqual([
-            { text: "hello", completed: true },
-            {
-                text: "World",
-                completed: false
-            }
-        ]);
+      store = TestBed.get(Store);
+      store.reset({ todos: JSON.parse(JSON.stringify(todosInitialState)) });
+      fixture = TestBed.createComponent(MockComponent);
     });
 
-    it("should add todo with using immutable mutation", () => {
-        TestBed.configureTestingModule({
-            imports: [
-                NgxsModule.forRoot([TodosState]),
-                NgxsEmitPluginModule.forRoot()
-            ],
-            declarations: [MockComponent]
-        });
+    it('should add todo with classic mutation', () => {
+      const previous = store.selectSnapshot(TodosState);
+      expect(previous).toEqual(todosInitialState);
 
-        const fixture = TestBed.createComponent(MockComponent);
-        const store: Store = TestBed.get(Store);
+      fixture.componentInstance.mutableAddTodo.emit({
+        text: 'World',
+        completed: false
+      });
 
-        const previous = store.selectSnapshot(TodosState);
+      const newState = store.selectSnapshot(TodosState);
+      const equallyMutatedState = [
+        { text: 'hello', completed: true },
+        {
+          text: 'World',
+          completed: false
+        }
+      ];
 
-        expect(previous).toEqual([{ text: "hello", completed: true }]);
-
-        fixture.componentInstance.immutableAddTodo.emit({
-            text: "World",
-            completed: false
-        });
-
-        const newState = store.selectSnapshot(TodosState);
-
-        expect(previous).toEqual([{ text: "hello", completed: true }]);
-
-        expect(newState).toEqual([
-            { text: "hello", completed: true },
-            {
-                text: "World",
-                completed: false
-            }
-        ]);
+      expect(previous).toEqual(equallyMutatedState);
+      expect(newState).toEqual(equallyMutatedState);
     });
+
+    it('should add todo with using immutable mutation', () => {
+      const previous = store.selectSnapshot(TodosState);
+      expect(previous).toEqual(todosInitialState);
+
+      fixture.componentInstance.immutableAddTodo.emit({
+        text: 'World',
+        completed: false
+      });
+
+      const newState = store.selectSnapshot(TodosState);
+
+      expect(previous).toEqual(todosInitialState);
+      expect(newState).toEqual([
+        { text: 'hello', completed: true },
+        {
+          text: 'World',
+          completed: false
+        }
+      ]);
+    });
+  });
+
+  describe('Animal state', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [NgxsModule.forRoot([AnimalState])]
+      });
+
+      store = TestBed.get(Store);
+      store.reset({ animals: JSON.parse(JSON.stringify(animalInitialState)) });
+    });
+
+    it('should add zebra food with using mutable mutation', () => {
+      const previous = store.selectSnapshot(AnimalState);
+      expect(previous).toEqual(animalInitialState);
+
+      store.dispatch(new FeedZebra('banana'));
+      const newState = store.selectSnapshot(AnimalState);
+
+      const equallyMutatedState = {
+        zebra: {
+          food: ['banana'],
+          name: 'zebra'
+        },
+        panda: {
+          food: [],
+          name: 'panda'
+        }
+      };
+
+      expect(previous).toEqual(equallyMutatedState);
+      expect(newState).toEqual(equallyMutatedState);
+    });
+
+    it('should add zebra food with using immutable mutation', () => {
+      const previous = store.selectSnapshot(AnimalState);
+      expect(previous).toEqual(animalInitialState);
+
+      store.dispatch(new FeedImmutableZebra('banana'));
+      const newState = store.selectSnapshot(AnimalState);
+
+      expect(previous).toEqual({
+        zebra: {
+          food: [],
+          name: 'zebra'
+        },
+        panda: {
+          food: [],
+          name: 'panda'
+        }
+      });
+
+      expect(newState).toEqual({
+        zebra: {
+          food: ['banana'],
+          name: 'zebra'
+        },
+        panda: {
+          food: [],
+          name: 'panda'
+        }
+      });
+    });
+  });
 });
