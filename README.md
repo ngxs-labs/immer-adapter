@@ -71,6 +71,8 @@ export class AnimalState {
 `immer-adapter` gives you the opportunity to manage mutations in a more declarative way:
 
 ```ts
+import { Mutation } from '@ngxs-labs/immer-adapter';
+
 @State<AnimalsStateModel>({
     name: 'animals',
     defaults: {
