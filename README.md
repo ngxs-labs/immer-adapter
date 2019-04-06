@@ -25,8 +25,6 @@ npm install @ngxs-labs/immer-adapter immer
 yarn add @ngxs-labs/immer-adapter immer
 ```
 
-#### Produce operator
-
 ##### Before
 
 When your state is growing - it becomes harder to manage such mutations:
@@ -73,15 +71,6 @@ export class AnimalState {
 `immer-adapter` gives you the opportunity to manage mutations in a more declarative way:
 
 ```ts
-import { State, Action, StateContext } from '@ngxs/store';
-import { Receiver, EmitterAction } from '@ngxs-labs/emitter';
-import { produce } from '@ngxs-labs/immer-adapter';
-
-export class FeedZebra {
-    public static readonly type = '[Animals] Feed zebra';
-    constructor(public payload: string) {}
-}
-
 @State<AnimalsStateModel>({
     name: 'animals',
     defaults: {
@@ -96,9 +85,15 @@ export class FeedZebra {
     }
 })
 export class AnimalState {
+    
+    @Mutation()
     @Action(FeedZebra)
-    public feedZebra(ctx: StateContext<AnimalsStateModel>, { payload }: FeedZebra) {
-        produce(ctx, (draft: AnimalsStateModel) => draft.zebra.food.push(payload));
+    public feedZebra(ctx: StateContext<AnimalsStateModel>, { payload }: FeedZebra): AnimalsStateModel {
+        ctx.setState((state: AnimalsStateModel) => { // immutable mutation with immer (analogue produce)
+          state.zebra.food.push(payload);
+          return state;
+        })
     }
+  
 }
 ```
