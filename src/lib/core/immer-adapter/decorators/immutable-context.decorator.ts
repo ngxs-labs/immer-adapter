@@ -1,12 +1,12 @@
 import { StateContext } from '@ngxs/store';
-import { draftContext } from '../internal/draft-context';
+import { ImmutableStateContext } from '../common/immutable-state-context';
 
-export function Mutation(): Function {
+export function ImmutableContext(): Function {
   return function(_target: Object, _key: string, descriptor: PropertyDescriptor): PropertyDescriptor {
     const method = descriptor.value;
 
     descriptor.value = function(ctx: StateContext<any>, action: any, ...args: any[]) {
-      return method.apply(this, [draftContext(ctx), action, ...args]);
+      return method.apply(this, [new ImmutableStateContext(ctx), action, ...args]);
     };
 
     return descriptor;
