@@ -1,7 +1,7 @@
-import { produce as immerProduce, Draft } from 'immer';
+import { Draft, produce as immerProduce } from 'immer';
 import { StateContext, StateOperator } from '@ngxs/store';
+import { isValidContext } from '../common/utils';
 
-import { isValidContext } from '../internal/internals';
 
 /**
  * An adapter function for the `produce` from `immer` library

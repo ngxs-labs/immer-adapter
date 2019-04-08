@@ -1,8 +1,7 @@
 import { State, StateContext } from '@ngxs/store';
 import { Emittable, Emitter, EmitterAction, Receiver } from '@ngxs-labs/emitter';
 import { Component } from '@angular/core';
-
-import { Mutation } from '../../public_api';
+import { ImmutableContext } from '../../lib/core/immer-adapter/decorators/immutable-context.decorator';
 
 export interface Todo {
   text: string;
@@ -22,7 +21,7 @@ export class TodosState {
   }
 
   @Receiver()
-  @Mutation()
+  @ImmutableContext()
   public static immutableAddTodo(ctx: StateContext<Todo[]>, { payload }: EmitterAction<Todo>): void {
     this.mutate(ctx, payload as Todo);
   }

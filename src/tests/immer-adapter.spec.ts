@@ -4,8 +4,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { animalInitialState, AnimalState, FeedImmutableZebra, FeedZebra } from './helpers/animal.helper';
 import { MockComponent, todosInitialState, TodosState } from './helpers/todo.helper';
+import { PizzasImmutableAction, pizzasInitialState, PizzaState } from './helpers/pizza.helper';
 
-describe('API 2.x', () => {
+describe('Immer adapter', () => {
   let store: Store;
   let fixture: ComponentFixture<any>;
 
@@ -125,6 +126,41 @@ describe('API 2.x', () => {
           name: 'panda'
         }
       });
+    });
+  });
+
+  describe('Pizzas state (developmentMode = true)', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [NgxsModule.forRoot([PizzaState], { developmentMode: true })]
+      });
+
+      store = TestBed.get(Store);
+      store.reset({ pizzas: JSON.parse(JSON.stringify(pizzasInitialState)) });
+    });
+
+    it('should add pizza toppings with using immutable mutation', () => {
+      const previous = store.selectSnapshot(PizzaState);
+      expect(previous).toEqual(pizzasInitialState);
+
+      store.dispatch(new PizzasImmutableAction('tomato ham'));
+      const newState = store.selectSnapshot(PizzaState);
+
+      expect(previous).toEqual(pizzasInitialState);
+      expect(newState).toEqual({
+        margherita: {
+          toppings: ['tomato sauce', 'mozzarella cheese', 'tomato ham'],
+          prices: { small: '5.00', medium: '6.00', large: '7.00' }
+        },
+        prosciutto: {
+          toppings: ['tomato ham', 'tomato sauce', 'mozzarella cheese', 'ham'],
+          prices: { small: '6.50', medium: '7.50', large: '8.50' }
+        }
+      });
+
+      const toppings = store.selectSnapshot(PizzaState.margheritaToppings);
+      expect(previous).toEqual(pizzasInitialState);
+      expect(toppings).toEqual(['tomato ham', 'mozzarella cheese', 'tomato sauce']);
     });
   });
 });

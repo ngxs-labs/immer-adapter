@@ -1,5 +1,5 @@
 import { Action, State, StateContext } from '@ngxs/store';
-import { Mutation } from '../../public_api';
+import { ImmutableContext } from '../../lib/core/immer-adapter/decorators/immutable-context.decorator';
 
 export interface AnimalsStateModel {
   zebra: {
@@ -51,7 +51,7 @@ export class AnimalState {
     AnimalState.mutate(ctx, payload);
   }
 
-  @Mutation()
+  @ImmutableContext()
   @Action(FeedImmutableZebra)
   public immutableFeedZebra(ctx: StateContext<AnimalsStateModel>, { payload }: FeedImmutableZebra): void {
     AnimalState.mutate(ctx, payload);
