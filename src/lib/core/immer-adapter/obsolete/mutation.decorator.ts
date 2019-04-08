@@ -3,7 +3,6 @@ import { ImmutableStateContext } from '../common/immutable-state-context';
 
 /**
  * @deprecated - use ImmutableContext instead Mutation
- * @constructor
  */
 export function Mutation(): Function {
   return function(_target: Object, _key: string, descriptor: PropertyDescriptor): PropertyDescriptor {
