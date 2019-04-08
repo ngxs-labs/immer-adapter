@@ -19,7 +19,7 @@
     "peerDependencies": {
         "@angular/core": "^7.2.0",
         "@ngxs/store": "^3.4.0",
-        "immer": "^2.0.0"
+        "immer": "^2.1.5"
     },
     "ngPackage": {
         "lib": {
