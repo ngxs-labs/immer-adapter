@@ -100,8 +100,8 @@ export class AnimalState {
 
   @Action(FeedZebra)
   @ImmutableContext()
-  public feedZebra(ctx: StateContext<AnimalsStateModel>, { payload }: FeedZebra): AnimalsStateModel {
-    ctx.setState((state: AnimalsStateModel) => {
+  public feedZebra({ setState }: StateContext<AnimalsStateModel>, { payload }: FeedZebra): AnimalsStateModel {
+    setState((state: AnimalsStateModel) => {
       state.zebra.food.push(payload);
       return state;
     });
