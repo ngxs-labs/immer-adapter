@@ -3,7 +3,19 @@ import { createDraft, finishDraft } from 'immer';
 import { Observable } from 'rxjs';
 
 export class ImmutableStateContext<T extends object> implements StateContext<T> {
-  constructor(private ctx: StateContext<T>) {}
+  constructor(private ctx: StateContext<T>) {
+    ImmutableStateContext.autobindStateContext(this);
+  }
+
+  private static autobindStateContext(context: any): void {
+    for (const prop of Object.getOwnPropertyNames(Object.getPrototypeOf(context))) {
+      if (prop === 'constructor' || typeof context[prop] !== 'function') {
+        continue;
+      }
+
+      context[prop] = context[prop].bind(context);
+    }
+  }
 
   public getState(): T {
     return createDraft(this.ctx.getState()) as T;
