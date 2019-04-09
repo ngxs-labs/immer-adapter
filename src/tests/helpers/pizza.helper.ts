@@ -47,6 +47,10 @@ export class PizzasImmutableAction {
   constructor(public payload: string) {}
 }
 
+export class RemovePriceImmutableAction {
+  public static type = 'Remove Price Immutable Action';
+}
+
 @State<PizzaStateModel>({
   name: 'pizzas',
   defaults: pizzasInitialState
@@ -60,10 +64,21 @@ export class PizzaState {
 
   @ImmutableContext()
   @Action(PizzasImmutableAction)
-  public immutableFeedZebra(ctx: StateContext<PizzaStateModel>, { payload }: PizzasImmutableAction): void {
+  public immutableFeedPizza(ctx: StateContext<PizzaStateModel>, { payload }: PizzasImmutableAction): void {
     ctx.setState(state => {
       state.margherita.toppings.push(payload);
       state.prosciutto.toppings.unshift(payload);
+      return state;
+    });
+  }
+
+  @ImmutableContext()
+  @Action(RemovePriceImmutableAction)
+  public immutablePrice({ getState, setState }: StateContext<PizzaStateModel>): void {
+    const state = getState();
+    setState(() => {
+      state.prosciutto.prices = null as any;
+      state.margherita.prices = null as any;
       return state;
     });
   }

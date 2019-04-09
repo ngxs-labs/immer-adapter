@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { animalInitialState, AnimalState, FeedImmutableZebra, FeedZebra } from './helpers/animal.helper';
 import { MockComponent, todosInitialState, TodosState } from './helpers/todo.helper';
-import { PizzasImmutableAction, pizzasInitialState, PizzaState } from './helpers/pizza.helper';
+import { PizzasImmutableAction, pizzasInitialState, PizzaState, RemovePriceImmutableAction } from './helpers/pizza.helper';
 
 describe('Immer adapter', () => {
   let store: Store;
@@ -161,6 +161,20 @@ describe('Immer adapter', () => {
       const toppings = store.selectSnapshot(PizzaState.margheritaToppings);
       expect(previous).toEqual(pizzasInitialState);
       expect(toppings).toEqual(['tomato ham', 'mozzarella cheese', 'tomato sauce']);
+    });
+
+    it('should be correct autobind state context', () => {
+      const previous = store.selectSnapshot(PizzaState);
+      expect(previous).toEqual(pizzasInitialState);
+
+      store.dispatch(new RemovePriceImmutableAction());
+      const newState = store.selectSnapshot(PizzaState);
+      expect(previous).toEqual(pizzasInitialState);
+
+      expect(newState).toEqual({
+        margherita: { toppings: ['tomato sauce', 'mozzarella cheese'], prices: null },
+        prosciutto: { toppings: ['tomato sauce', 'mozzarella cheese', 'ham'], prices: null }
+      });
     });
   });
 });
