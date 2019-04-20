@@ -1,6 +1,6 @@
 {
     "name": "@ngxs-labs/immer-adapter",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/ngxs-labs/immer-adapter.git"
@@ -19,7 +19,7 @@
     "peerDependencies": {
         "@angular/core": "^7.2.0",
         "@ngxs/store": "^3.4.0",
-        "immer": "^2.1.5"
+        "immer": "^3.0.0"
     },
     "ngPackage": {
         "lib": {
