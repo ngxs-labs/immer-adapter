@@ -57,16 +57,15 @@ export class AnimalState {
     zebraFood.reverse();
   }
 
-  @Action(FeedZebra)
-  public feedZebra({ getState, setState }: StateContext<AnimalsStateModel>, { payload }: FeedZebra) {
-    const state = getState();
-    setState({
+  @Action(Add)
+  public add({ getState, setState }: StateContext<AnimalsStateModel>, { payload }: Add): void {
+    setState((state: AnimalsStateModel) => ({
       ...state,
       zebra: {
         ...state.zebra,
-        food: [...state.zebra.food, payload]
+        food: [ ...state.zebra.food, payload ]
       }
-    });
+    }));
   }
 }
 ```
@@ -98,13 +97,13 @@ export class AnimalState {
     return state.zebra.food.reverse();
   }
 
-  @Action(FeedZebra)
+  @Action(Add)
   @ImmutableContext()
-  public feedZebra({ setState }: StateContext<AnimalsStateModel>, { payload }: FeedZebra): AnimalsStateModel {
-    setState((state: AnimalsStateModel) => {
+  public add({ setState }: StateContext<AnimalsStateModel>, { payload }: Add): void {
+    setState((state: AnimalsStateModel) => ({
       state.zebra.food.push(payload);
       return state;
-    });
+    }));
   }
 }
 ```
