@@ -5,6 +5,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { animalInitialState, AnimalState, FeedImmutableZebra, FeedZebra } from './helpers/animal.helper';
 import { MockComponent, todosInitialState, TodosState } from './helpers/todo.helper';
 import { PizzasImmutableAction, pizzasInitialState, PizzaState, RemovePriceImmutableAction } from './helpers/pizza.helper';
+import { AppEmitters, AppSelectorsAsync, AppState } from './helpers/app.state';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
 describe('Immer adapter', () => {
   let store: Store;
@@ -175,6 +178,49 @@ describe('Immer adapter', () => {
         margherita: { toppings: ['tomato sauce', 'mozzarella cheese'], prices: null },
         prosciutto: { toppings: ['tomato sauce', 'mozzarella cheese', 'ham'], prices: null }
       });
+    });
+  });
+
+  describe('Without mutation', () => {
+    let component: AppComponent;
+    let fixture: ComponentFixture<AppComponent>;
+
+    @Component({ selector: 'immer-adapter-app', template: '{{ appStatus$ | async | json }}' })
+    class AppComponent {
+      public appStatus$: Observable<string> = this.appSelectorsAsync.appStatus$;
+      constructor(private appSelectorsAsync: AppSelectorsAsync) {}
+      public setOkStatus(): void {
+        AppEmitters.setOkStatus.emit();
+      }
+      public resetState(): void {
+        AppEmitters.resetState.emit();
+      }
+    }
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        declarations: [AppComponent],
+        providers: [AppSelectorsAsync],
+        imports: [NgxsModule.forRoot([AppState], { developmentMode: true }), NgxsEmitPluginModule.forRoot()]
+      }).compileComponents();
+
+      store = TestBed.get(Store);
+      fixture = TestBed.createComponent(AppComponent);
+      fixture.autoDetectChanges();
+      component = fixture.componentInstance;
+    });
+
+    it('should be correct reset state', () => {
+      expect(store.snapshot()).toEqual({ app: { status: 'Not Okay' } });
+      expect(fixture.elementRef.nativeElement.innerHTML).toEqual(`"Not Okay"`);
+
+      component.setOkStatus();
+      expect(store.snapshot()).toEqual({ app: { status: 'OK' } });
+      expect(fixture.elementRef.nativeElement.innerHTML).toEqual(`"OK"`);
+
+      component.resetState();
+      expect(store.snapshot()).toEqual({ app: { status: 'Not Okay' } });
+      expect(fixture.elementRef.nativeElement.innerHTML).toEqual(`"Not Okay"`);
     });
   });
 });
