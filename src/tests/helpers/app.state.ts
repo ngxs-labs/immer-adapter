@@ -49,6 +49,6 @@ class Selectors {
   }
 }
 
-export class AppSelectorsAsync {
+export class AppSelectors {
   @Select(Selectors.getAppStatus) public appStatus$: Observable<string> | any;
 }

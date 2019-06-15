@@ -26,7 +26,8 @@
             "flatModuleFile": "ngxs-labs-immer-adapter",
             "entryFile": "index.ts",
             "umdModuleIds": {
-                "@ngxs/store": "ngxs-store"
+                "@ngxs/store": "ngxs-store",
+                "immer": "immer"
             }
         },
         "dest": "../dist/immer-adapter"

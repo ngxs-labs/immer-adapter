@@ -5,7 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { animalInitialState, AnimalState, FeedImmutableZebra, FeedZebra } from './helpers/animal.helper';
 import { MockComponent, todosInitialState, TodosState } from './helpers/todo.helper';
 import { PizzasImmutableAction, pizzasInitialState, PizzaState, RemovePriceImmutableAction } from './helpers/pizza.helper';
-import { AppEmitters, AppSelectorsAsync, AppState } from './helpers/app.state';
+import { AppEmitters, AppSelectors, AppState } from './helpers/app.state';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -20,7 +20,7 @@ describe('Immer adapter', () => {
         declarations: [MockComponent]
       });
 
-      store = TestBed.get(Store);
+      store = TestBed.get<Store>(Store);
       store.reset({ todos: JSON.parse(JSON.stringify(todosInitialState)) });
       fixture = TestBed.createComponent(MockComponent);
     });
@@ -75,7 +75,7 @@ describe('Immer adapter', () => {
         imports: [NgxsModule.forRoot([AnimalState])]
       });
 
-      store = TestBed.get(Store);
+      store = TestBed.get<Store>(Store);
       store.reset({ animals: JSON.parse(JSON.stringify(animalInitialState)) });
     });
 
@@ -138,7 +138,7 @@ describe('Immer adapter', () => {
         imports: [NgxsModule.forRoot([PizzaState], { developmentMode: true })]
       });
 
-      store = TestBed.get(Store);
+      store = TestBed.get<Store>(Store);
       store.reset({ pizzas: JSON.parse(JSON.stringify(pizzasInitialState)) });
     });
 
@@ -188,7 +188,7 @@ describe('Immer adapter', () => {
     @Component({ selector: 'immer-adapter-app', template: '{{ appStatus$ | async | json }}' })
     class AppComponent {
       public appStatus$: Observable<string> = this.appSelectorsAsync.appStatus$;
-      constructor(private appSelectorsAsync: AppSelectorsAsync) {}
+      constructor(private appSelectorsAsync: AppSelectors) {}
       public setOkStatus(): void {
         AppEmitters.setOkStatus.emit();
       }
@@ -200,11 +200,11 @@ describe('Immer adapter', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
         declarations: [AppComponent],
-        providers: [AppSelectorsAsync],
+        providers: [AppSelectors],
         imports: [NgxsModule.forRoot([AppState], { developmentMode: true }), NgxsEmitPluginModule.forRoot()]
       }).compileComponents();
 
-      store = TestBed.get(Store);
+      store = TestBed.get<Store>(Store);
       fixture = TestBed.createComponent(AppComponent);
       fixture.autoDetectChanges();
       component = fixture.componentInstance;

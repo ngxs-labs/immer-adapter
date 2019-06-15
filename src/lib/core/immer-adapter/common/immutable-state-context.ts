@@ -2,7 +2,9 @@ import { StateContext, StateOperator } from '@ngxs/store';
 import { createDraft, finishDraft } from 'immer';
 import { Observable } from 'rxjs';
 
-export class ImmutableStateContext<T extends object> implements StateContext<T> {
+export class ImmutableStateContext<T extends any> implements StateContext<T> {
+  private frozenState: T | null = null;
+
   constructor(private ctx: StateContext<T>) {
     ImmutableStateContext.autobindStateContext(this);
   }
@@ -18,25 +20,39 @@ export class ImmutableStateContext<T extends object> implements StateContext<T> 
   }
 
   public getState(): T {
-    return createDraft(this.ctx.getState()) as T;
+    this.frozenState = createDraft(this.ctx.getState()) as T;
+    return this.frozenState;
   }
 
   public setState(val: T | StateOperator<T>): T {
-    if (typeof val === 'function') {
-      const operator: StateOperator<T> = val as StateOperator<T>;
-      const state: T = createDraft(this.ctx.getState()) as T;
-      const mutatedState: T = operator(state);
+    let state: T;
 
-      if (state !== mutatedState) {
-        finishDraft(state);
+    if (typeof val === 'function') {
+      let newState: T;
+      const oldState: T = createDraft(this.ctx.getState()) as T;
+      const operator: StateOperator<T> = val as StateOperator<T>;
+      const mutatedOldState: T = operator(oldState);
+
+      if (this.frozenState === mutatedOldState) {
+        newState = finishDraft(this.frozenState);
+        finishDraft(oldState);
+      } else {
+        const mutateOutsideOperator: boolean = oldState !== mutatedOldState;
+        if (mutateOutsideOperator) {
+          newState = mutatedOldState;
+          finishDraft(oldState);
+        } else {
+          newState = finishDraft(mutatedOldState);
+        }
       }
 
-      const newState: T = state !== mutatedState ? this.clone(mutatedState) : (finishDraft(mutatedState) as T);
-
-      return this.ctx.setState(newState);
+      state = newState;
     } else {
-      return this.ctx.setState(finishDraft(val) as T);
+      state = finishDraft(val);
     }
+
+    this.frozenState = null;
+    return this.ctx.setState(state);
   }
 
   public patchState(val: Partial<T>): T {
@@ -45,43 +61,5 @@ export class ImmutableStateContext<T extends object> implements StateContext<T> 
 
   public dispatch(actions: any | any[]): Observable<void> {
     return this.ctx.dispatch(actions);
-  }
-
-  private clone<T = any>(obj: T): T {
-    let copy: any;
-
-    // Handle the 3 simple types, and null or undefined
-    if (null == obj || 'object' !== typeof obj) {
-      return obj;
-    }
-
-    // Handle Date
-    if (obj instanceof Date) {
-      copy = new Date();
-      copy.setTime(obj.getTime());
-      return copy as T;
-    }
-
-    // Handle Array
-    if (obj instanceof Array) {
-      copy = [];
-      for (let i = 0, len = obj.length; i < len; i++) {
-        copy[i] = this.clone(obj[i]);
-      }
-      return copy;
-    }
-
-    // Handle Object
-    if (obj instanceof Object) {
-      copy = {};
-      for (const attr in obj) {
-        if (obj.hasOwnProperty(attr)) {
-          copy[attr] = this.clone(obj[attr]);
-        }
-      }
-      return copy;
-    }
-
-    throw new Error(`Unable to copy obj! Its type isn't supported.`);
   }
 }
