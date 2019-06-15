@@ -2,7 +2,9 @@ import { StateContext, StateOperator } from '@ngxs/store';
 import { createDraft, finishDraft } from 'immer';
 import { Observable } from 'rxjs';
 
-export class ImmutableStateContext<T extends object> implements StateContext<T> {
+export class ImmutableStateContext<T extends any> implements StateContext<T> {
+  private frozenState: T | null = null;
+
   constructor(private ctx: StateContext<T>) {
     ImmutableStateContext.autobindStateContext(this);
   }
@@ -18,18 +20,39 @@ export class ImmutableStateContext<T extends object> implements StateContext<T> 
   }
 
   public getState(): T {
-    return createDraft(this.ctx.getState()) as T;
+    this.frozenState = createDraft(this.ctx.getState()) as T;
+    return this.frozenState;
   }
 
   public setState(val: T | StateOperator<T>): T {
+    let state: T;
+
     if (typeof val === 'function') {
+      let newState: T;
+      const oldState: T = createDraft(this.ctx.getState()) as T;
       const operator: StateOperator<T> = val as StateOperator<T>;
-      const state: T = createDraft(this.ctx.getState()) as T;
-      const newState: T = finishDraft(operator(state)) as T;
-      return this.ctx.setState(newState);
+      const mutatedOldState: T = operator(oldState);
+
+      if (this.frozenState === mutatedOldState) {
+        newState = finishDraft(this.frozenState);
+        finishDraft(oldState);
+      } else {
+        const mutateOutsideOperator: boolean = oldState !== mutatedOldState;
+        if (mutateOutsideOperator) {
+          newState = mutatedOldState;
+          finishDraft(oldState);
+        } else {
+          newState = finishDraft(mutatedOldState);
+        }
+      }
+
+      state = newState;
     } else {
-      return this.ctx.setState(finishDraft(val) as T);
+      state = finishDraft(val);
     }
+
+    this.frozenState = null;
+    return this.ctx.setState(state);
   }
 
   public patchState(val: Partial<T>): T {

@@ -1,6 +1,6 @@
 {
     "name": "@ngxs-labs/immer-adapter",
-    "version": "3.0.2",
+    "version": "3.0.4",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/ngxs-labs/immer-adapter.git"
@@ -26,7 +26,8 @@
             "flatModuleFile": "ngxs-labs-immer-adapter",
             "entryFile": "index.ts",
             "umdModuleIds": {
-                "@ngxs/store": "ngxs-store"
+                "@ngxs/store": "ngxs-store",
+                "immer": "immer"
             }
         },
         "dest": "../dist/immer-adapter"
