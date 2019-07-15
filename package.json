@@ -80,6 +80,6 @@
         "tslint": "5.18.0",
         "tslint-sonarts": "1.9.0",
         "typescript": "3.1.6",
-        "yargs": "13.2.4"
+        "yargs": "13.3.0"
     }
 }
