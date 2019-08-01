@@ -636,10 +636,10 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-11.10.0.tgz#08eeb736ae678ccf9ca0922063f3a08795894ede"
   integrity sha512-6Mb9+PPq9UzRpQrlPzZAbhEvodWDTnsIakddUAtSDpKYF6eu5zAdW31n8x7UZStvqGnDC7dCJnvU188ylv/Ytw==
 
-"@types/node@^12.6.2":
-  version "12.6.3"
-  resolved "https://registry.npmjs.org/@types/node/-/node-12.6.3.tgz#44d507c5634f85e7164707ca36bba21b5213d487"
-  integrity sha512-7TEYTQT1/6PP53NftXXabIZDaZfaoBdeBm8Md/i7zsWRoBe0YwOXguyK8vhHs8ehgB/w9U4K/6EWuTyp0W6nIA==
+"@types/node@^12.6.3":
+  version "12.6.9"
+  resolved "https://registry.npmjs.org/@types/node/-/node-12.6.9.tgz#ffeee23afdc19ab16e979338e7b536fdebbbaeaf"
+  integrity sha512-+YB9FtyxXGyD54p8rXwWaN1EWEyar5L58GlGWgtH2I9rGmLGBQcw63+0jw+ujqVavNuO47S1ByAjm9zdHMnskw==
 
 "@types/resolve@0.0.8":
   version "0.0.8"
@@ -6889,13 +6889,13 @@ rollup-pluginutils@^2.0.1, rollup-pluginutils@^2.3.1, rollup-pluginutils@^2.6.0:
     estree-walker "^0.6.0"
     micromatch "^3.1.10"
 
-rollup@1.17.0:
-  version "1.17.0"
-  resolved "https://registry.npmjs.org/rollup/-/rollup-1.17.0.tgz#47ee8b04514544fc93b39bae06271244c8db7dfa"
-  integrity sha512-k/j1m0NIsI4SYgCJR4MWPstGJOWfJyd6gycKoMhyoKPVXxm+L49XtbUwZyFsrSU2YXsOkM4u1ll9CS/ZgJBUpw==
+rollup@1.18.0:
+  version "1.18.0"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-1.18.0.tgz#98ea36472523ed712e20c0e996fd051882f787e6"
+  integrity sha512-MBAWr6ectF948gW/bs/yfi0jW7DzwI8n0tEYG/ZMQutmK+blF/Oazyhg3oPqtScCGV8bzCtL9KzlzPtTriEOJA==
   dependencies:
     "@types/estree" "0.0.39"
-    "@types/node" "^12.6.2"
+    "@types/node" "^12.6.3"
     acorn "^6.2.0"
 
 rollup@^0.67.0:
