@@ -50,7 +50,7 @@
         "@angular/platform-browser-dynamic": "8.2.14",
         "@ngxs-labs/emitter": "1.9.0",
         "@ngxs/store": "3.6.1",
-        "@types/jest": "^25.1.1",
+        "@types/jest": "^25.1.2",
         "immer": "5.2.1",
         "prettier": "^1.19.1",
         "rxjs": "6.5.4",
