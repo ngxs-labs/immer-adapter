@@ -51,7 +51,7 @@
         "@ngxs-labs/emitter": "1.9.0",
         "@ngxs/store": "3.7.1",
         "@types/jest": "^26.0.13",
-        "immer": "9.0.1",
+        "immer": "9.0.2",
         "prettier": "^2.2.1",
         "rxjs": "6.6.7",
         "zone.js": "~0.11.3"
