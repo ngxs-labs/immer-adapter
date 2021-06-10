@@ -552,12 +552,12 @@
     tree-kill "1.2.1"
     webpack-sources "1.3.0"
 
-"@ngxs-labs/emitter@1.9.0":
-  version "1.9.0"
-  resolved "https://registry.npmjs.org/@ngxs-labs/emitter/-/emitter-1.9.0.tgz"
-  integrity sha512-OLek2LdPp1vvjJ0WMn37IhkfzEmeaNzdJt3xx5hydB71PnDFC+NuCU1aqLcQ1/8vxO1SK8jd9JUxMMarqvJlUA==
+"@ngxs-labs/emitter@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/@ngxs-labs/emitter/-/emitter-3.0.1.tgz#f9ad86c2b5837231af480a4c497a3070e434ad12"
+  integrity sha512-NC0da02WGEKuHPz6FFhXPDRAEANHP4GO1S7+3NgcmFF/7sw/moVFd/DOaZIUn3JMKeX6BwkbIRJcxiwdZoKnHw==
   dependencies:
-    tslib "^1.9.0"
+    tslib "^2.1.0"
 
 "@ngxs/store@3.7.1":
   version "3.7.1"
@@ -3710,7 +3710,7 @@ image-size@~0.5.0:
 
 immer@9.0.3:
   version "9.0.3"
-  resolved "https://registry.npmjs.org/immer/-/immer-9.0.3.tgz"
+  resolved "https://registry.npmjs.org/immer/-/immer-9.0.3.tgz#146e2ba8b84d4b1b15378143c2345559915097f4"
   integrity sha512-mONgeNSMuyjIe0lkQPa9YhdmTv8P19IeHV0biYhcXhbd5dhdB9HSK93zBpyKjp6wersSUgT5QyU0skmejUVP2A==
 
 immutable@^3.8.2:
@@ -8144,6 +8144,11 @@ tslib@^2.0.0:
   version "2.0.3"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.0.3.tgz"
   integrity sha512-uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ==
+
+tslib@^2.1.0:
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.2.0.tgz#fb2c475977e35e241311ede2693cee1ec6698f5c"
+  integrity sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w==
 
 tslint-sonarts@1.9.0:
   version "1.9.0"
