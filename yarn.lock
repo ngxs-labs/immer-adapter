@@ -559,10 +559,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ngxs/store@3.7.1":
-  version "3.7.1"
-  resolved "https://registry.npmjs.org/@ngxs/store/-/store-3.7.1.tgz"
-  integrity sha512-Qg4rkF8XoIg/E2SGUfBbr4JmR8ZbRfeg1X++fF0HJymK1PtbIxtEXQXm7VTH0+GSmYDCwPJb8Im9dZHGZWF5ww==
+"@ngxs/store@3.7.2":
+  version "3.7.2"
+  resolved "https://registry.npmjs.org/@ngxs/store/-/store-3.7.2.tgz#1088b0669adc382d36ca7ae8438c603e55879b42"
+  integrity sha512-1cnAjHOGCovfvhjtcAWBajrMXos97Un3c8ekKoS8FIHnq3aQOzY/ePspDRNi9kTcuBJ/r/xl097JC1ssEuNbyg==
   dependencies:
     tslib "^1.9.0"
 
@@ -3710,7 +3710,7 @@ image-size@~0.5.0:
 
 immer@9.0.3:
   version "9.0.3"
-  resolved "https://registry.npmjs.org/immer/-/immer-9.0.3.tgz"
+  resolved "https://registry.npmjs.org/immer/-/immer-9.0.3.tgz#146e2ba8b84d4b1b15378143c2345559915097f4"
   integrity sha512-mONgeNSMuyjIe0lkQPa9YhdmTv8P19IeHV0biYhcXhbd5dhdB9HSK93zBpyKjp6wersSUgT5QyU0skmejUVP2A==
 
 immutable@^3.8.2:
