@@ -54,7 +54,7 @@
         "immer": "9.0.3",
         "prettier": "^2.3.1",
         "rxjs": "6.6.7",
-        "zone.js": "~0.11.3"
+        "zone.js": "~0.11.5"
     },
     "devDependencies": {
         "@angular-builders/jest": "7.4.2",
